@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# update and if necessary restart script
+git fetch
+[ "$(git log HEAD -n 1)" = "$(git log origin/master -n 1)"] && \
+  git reset --hard origin/master && \
+  $0 && exit
+
 sudo apt-get install python-scipy python-docopt python-matplotlib
 
 if [ -z $INSTALL_DIR ]
