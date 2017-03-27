@@ -3,6 +3,12 @@
 set -e
 trap 'echo An error occurred in $0 at line $LINENO. Current working-dir: $PWD' ERR
 
+# update and if necessary restart script
+git fetch
+[ "$(git log HEAD -n 1)" = "$(git log origin/master -n 1)"] && \
+  git reset --hard origin/master && \
+  $0 && exit
+
 sudo apt-get install python-scipy python-docopt python-matplotlib
 
 source ~/.bashrc
