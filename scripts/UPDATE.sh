@@ -87,7 +87,8 @@ SuperBuild(){
     cd SIRF-SuperBuild
   else
     cd SIRF-SuperBuild
-    #git pull
+    git checkout consistent-build-dir
+    git pull
   fi
   cd ..
   mkdir -p buildVM
