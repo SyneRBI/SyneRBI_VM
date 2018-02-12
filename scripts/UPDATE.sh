@@ -206,8 +206,7 @@ if [ ! -z "$STIR_exercises_PATH" ]; then
 fi
 
 # TODO get this from somewhere else
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-version=`echo -n "export SIRF_VM_VERSION=" | cat - ${DIR}/VM_version.txt`
+version=`echo -n "export SIRF_VM_VERSION=" | cat - ${SIRF_SRC_PATH}/CCPPETMR_VM/VM_version.txt`
 #echo "export SIRF_VM_VERSION=0.9.2" > ~/.sirf_VM_version
 echo $version > ~/.sirf_VM_version
 
