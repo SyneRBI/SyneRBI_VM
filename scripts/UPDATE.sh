@@ -85,10 +85,11 @@ SuperBuild(){
   then
     git clone https://github.com/CCPPETMR/SIRF-SuperBuild.git
     cd SIRF-SuperBuild
+    git checkout consistent-build-dir
   else
     cd SIRF-SuperBuild
-    git checkout consistent-build-dir
     git pull
+    git checkout consistent-build-dir
   fi
   cd ..
   mkdir -p buildVM
