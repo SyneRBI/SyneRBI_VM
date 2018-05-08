@@ -23,6 +23,8 @@ $SUDO apt-get install -y --no-install-recommends swig
 echo "Installing python libraries etc"
 $SUDO apt-get install -y --no-install-recommends  python-scipy python-docopt  python-numpy python-h5py python-matplotlib python-libxml2 python-psutil spyder python-tk python-nose
 
+echo "installing glog"
+$SUDO apt-get install libgoogle-glog-dev
 
 # could do recent version of CMake
 # This would be necessary for the Superbuild
