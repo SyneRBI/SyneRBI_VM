@@ -231,6 +231,16 @@ fi
 # copy scripts into the path
 cp -vp $SIRF_SRC_PATH/CCPPETMR_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
 
+# install the SIRF-Exercises
+cd $SIRF_SRC_PATH
+clone_or_pull SIRF-Exercises
+# install ipython notebook and firefox
+$SIRF_SRC_PATH/CCPPETMR_VM/scripts/update_VM_with_exercises.sh
+start_notebook="#! /bin/bash
+cd ${SIRF_SRC_PATH}/SIRF-Exercises/notebook
+ipython notebook
+" > $SIRF_INSTALL_PATH/bin/start_notebook
+chmod +x $SIRF_INSTALL_PATH/bin/start_notebook
 # copy help file to Desktop
 if [ ! -d ~/Desktop ]
 then
