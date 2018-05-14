@@ -3,4 +3,4 @@
 # Originally introduced for the PSMR2018 training event.
 
 echo "installing ipython notebook and browser"
-$SUDO apt-get install -y firefox ipython-notebook
+$SUDO apt-get install -y firefox python-pip
