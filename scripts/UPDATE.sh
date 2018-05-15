@@ -234,8 +234,7 @@ cp -vp $SIRF_SRC_PATH/CCPPETMR_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
 # install the SIRF-Exercises
 cd $SIRF_SRC_PATH
 clone_or_pull SIRF-Exercises
-# install ipython notebook and firefox
-#$SIRF_SRC_PATH/CCPPETMR_VM/scripts/update_VM_with_exercises.sh
+
 echo "#! /bin/bash
 cd ${SIRF_SRC_PATH}/SIRF-Exercises/notebooks
 ipython notebook

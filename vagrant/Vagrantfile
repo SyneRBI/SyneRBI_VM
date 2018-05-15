@@ -109,9 +109,9 @@ Vagrant.configure("2") do |config|
 	apt-get upgrade -y
 	# uninstall the ubuntu provided virtualbox packages
 	# https://github.com/CCPPETMR/CCPPETMR_VM/issues/77#issuecomment-382686304
-	apt-get install build-essential module-assistant
+	apt-get install -y build-essential module-assistant
 	sudo /opt/VBoxGuestAdditions-*/uninstall.sh
-        apt-get purge virtualb*
+    apt-get purge -y virtualb*
 
 	#install upgrades
 	apt-get install -y wget git xorg xterm gdm menu gksu synaptic gnome-session gnome-panel metacity --no-install-recommends
