@@ -26,5 +26,5 @@ $SUDO apt-get install -y --no-install-recommends  python-scipy python-docopt  py
 echo "installing glog"
 $SUDO apt-get install -y libgoogle-glog-dev
 
-echo "installing pip and firefox for jupyter"
-$SUDO apt-get install -y firefox python-pip python-qt4
+echo "installing pip for jupyter"
+$SUDO apt-get install -y python-pip python-qt4
