@@ -68,7 +68,7 @@ Vagrant.configure("2") do |config|
        "--type", "dvddrive",
        "--medium", "emptydrive",
        ]
-	vb.name = "SIRF_1.1.0"
+	vb.name = "SIRF_1.1.0-rc.1"
 	vb.customize ["modifyvm", :id, 
 	              "--clipboard", "bidirectional"]
 	#vb.customize [ "modifyvm", :id, 
@@ -160,10 +160,10 @@ Vagrant.configure("2") do |config|
     git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
     cd CCPPETMR_VM
     git pull
-    git checkout install_new_packages
+    git checkout virtualbox_ubuntu_packages
     bash $HOME/devel/CCPPETMR_VM/scripts/INSTALL_prerequisites_with_apt-get.sh
     # install jupyter
-    apt-get install -y firefox python-pip
+    apt-get install -y firefox python-pip python-qt4
     python -m pip install --upgrade pip
     python -m pip install jupyter
     python -m pip install spyder
