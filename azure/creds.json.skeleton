@@ -1,0 +1,8 @@
+{
+    "azure_client_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "azure_client_secret": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "azure_tenant_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "azure_subscription": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "azure_rg_name": "myNBResourceGroup",
+    "azure_storage_acc": "mynbstorageaccount"
+}

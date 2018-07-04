@@ -1,0 +1,2 @@
+# Spin up all
+bash spinUp.sh packerImage 1 28 Standard_D4s_v3
