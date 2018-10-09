@@ -12,8 +12,8 @@ $SUDO apt-get install -y --no-install-recommends libhdf5-serial-dev git-core cma
       libboost-all-dev build-essential libfftw3-dev h5utils \
       hdf5-tools hdfview python-dev liblapack-dev libxml2-dev \
       libxslt-dev libarmadillo-dev libace-dev  \
-      g++ libgtest-dev libplplot-dev \
-      python-dev
+      g++-6 gcc-6 libgtest-dev libplplot-dev \
+      python-dev libopenblas-dev libatlas-base-dev
 
 echo "Installing SWIG..."
 
