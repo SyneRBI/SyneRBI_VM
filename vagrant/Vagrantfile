@@ -20,7 +20,7 @@
 #=========================================================================
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/bionic64"
   config.vm.synced_folder '.', '/vagrant', disabled: true
 
   # Disable automatic box update checking. If you disable this, then
@@ -52,6 +52,8 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
+  HOME_DISK="sirf_disk.vdi"
+  
   config.vm.provider "virtualbox" do |vb|
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
@@ -68,9 +70,25 @@ Vagrant.configure("2") do |config|
        "--type", "dvddrive",
        "--medium", "emptydrive",
        ]
-	vb.name = "SIRF_1.1.1"
+	vb.name = "SIRF_1.1.1_18.04"
 	vb.customize ["modifyvm", :id, 
 	              "--clipboard", "bidirectional"]
+                  
+    # create a VDI file instead of VMDK
+    # https://github.com/CCPPETMR/CCPPETMR_VM/issues/75#issuecomment-395107022
+    if ARGV[0] == "up" && ! File.exist?(HOME_DISK)
+      vb.customize ['createhd',
+                    '--filename', HOME_DISK,
+                    '--format', 'VDI',
+                    '--size', 50000]
+
+      vb.customize ['storageattach', :id,
+                    '--storagectl', 'SCSI',
+                    '--port', 0,
+		            '--device', 0,
+                    '--type', 'hdd',
+		            '--medium', HOME_DISK]
+    end
 	#vb.customize [ "modifyvm", :id, 
 	#              "--uartmode1", "disconnected" ]
   end
@@ -144,9 +162,9 @@ Vagrant.configure("2") do |config|
 
 	# download/install cmake
     cd /opt
-    wget -c https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz
+    wget -c https://cmake.org/files/v3.12/cmake-3.12.3.tar.gz
     cd /usr/local
-    tar xzf /opt/cmake-3.7.2-Linux-x86_64.tar.gz --strip 1
+    tar xzf /opt/cmake-3.12.3.tar.gz --strip 1
 
     HOME=/home/sirfuser
     mkdir $HOME/devel
