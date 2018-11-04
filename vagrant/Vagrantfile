@@ -68,7 +68,7 @@ Vagrant.configure("2") do |config|
        "--type", "dvddrive",
        "--medium", "emptydrive",
        ]
-	vb.name = "STIR-exercises-Mov2018"
+	vb.name = "STIR-exercises-Nov2018"
 	vb.customize ["modifyvm", :id, 
 	              "--clipboard", "bidirectional"]
 	#vb.customize [ "modifyvm", :id, 
@@ -106,11 +106,10 @@ Vagrant.configure("2") do |config|
 	# mark grup as hold as it requires user intervention on upgrade!
 	apt-mark hold grub-pc
 	# upgrade the list of packages
-	apt-get upgrade -y
-
+ 	apt-get upgrade -y
 	#install upgrades
 	apt-get install -y wget git xorg xterm gdm menu gksu synaptic gnome-session gnome-panel metacity --no-install-recommends
-    apt-get install -y at-spi2-core gnome-terminal gnome-control-center nautilus dmz-cursor-theme network-manager network-manager-gnome
+    apt-get install -y at-spi2-core gnome-terminal gnome-control-center nautilus dmz-cursor-theme network-manager network-manager-gnome --no-install-recommends
     
 	# start gnome display manager
 	service gdm start
@@ -162,7 +161,7 @@ Vagrant.configure("2") do |config|
     python -m pip install --upgrade pip
     python -m pip install jupyter
     python -m pip install spyder
-    bash $HOME/devel/CCPPETMR_VM/scripts/UPDATE.sh master
+    bash $HOME/devel/CCPPETMR_VM/scripts/UPDATE.sh -t master
     chown -R sirfuser:users /home/sirfuser/
     
    SHELL
