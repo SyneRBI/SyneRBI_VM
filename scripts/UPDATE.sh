@@ -137,6 +137,7 @@ SuperBuild(){
 	  -USIRF_URL -USIRF_TAG -USTIR_URL -USTIR_TAG \
 	  -UGadgetron_URL -UGadgetron_TAG -UISMRMRD_URL \
 	  -UISMRMRD_TAG \
+      -DSTIR_TAG=origin/DoxyAndSWIG \
 	  -DUSE_SYSTEM_SWIG=On \
 	  -DUSE_SYSTEM_Armadillo=On \
 	  -DUSE_SYSTEM_FFTW3=On \
