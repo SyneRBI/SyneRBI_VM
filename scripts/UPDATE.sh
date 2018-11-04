@@ -141,8 +141,11 @@ SuperBuild(){
 	  -DUSE_SYSTEM_Armadillo=On \
 	  -DUSE_SYSTEM_FFTW3=On \
 	  -DUSE_SYSTEM_HDF5=ON \
-	  -DBUILD_siemens_to_ismrmrd=On \
-	  -DDEVEL_BUILD=OFF
+	  -DBUILD_siemens_to_ismrmrd=OFF \
+          -DBUILD_GADGETRON=OFF \
+          -DBUILD_SIRF=OFF \
+	  -DDEVEL_BUILD=ON \
+          -DBUILD_DOCUMENTATION=ON
   make -j${num_parallel}
 
   if [ ! -f ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml ]
