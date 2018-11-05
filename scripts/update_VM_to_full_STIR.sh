@@ -11,20 +11,19 @@ echo "This script assumes you have run update_VM.sh already."
 echo "Things will go horribly wrong otherwise."
 
 # first do a very brief check
-# SIRF is not necessarily installed so need to get rid of i
-SRC_PATH=`dirname $SIRF_PATH`
+SRC_PATH=$SIRF_SRC_PATH
 if [ -z "$SRC_PATH" -o ! -d $SRC_PATH -o ! -d $SRC_PATH/STIR ]; then
    echo "Directories not found. Run update_VM.sh"
    exit 1
 fi
 
 # change build files to also build the STIR executables
-cd $SRC_PATH/..
+cd $SRC_PATH/testbuild
 cmake -DBUILD_STIR_EXECUTABLES=ON -DBUILD_STIR_SWIG_PYTHON=ON .
-make
+make install
 
 # update/get STIR exercises
-cd $SIRF_SRC_PATH
+cd $SRC_PATH
 if [ -d ./STIR-exercises ]; then
    cd ./STIR-exercises
    git pull
