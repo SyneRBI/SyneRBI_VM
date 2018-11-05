@@ -244,7 +244,7 @@ cd $SIRF_SRC_PATH
 clone_or_pull SIRF-Exercises
 python -m pip install --user nbstripout
 cd $SIRF_SRC_PATH/SIRF-Exercises
-nbstripout --install
+~/.local/bin/nbstripout --install
 
 # copy help file to Desktop
 if [ ! -d ~/Desktop ]

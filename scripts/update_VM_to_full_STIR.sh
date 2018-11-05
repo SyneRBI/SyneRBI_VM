@@ -34,7 +34,7 @@ else
 fi
 
 python -m pip install --user nbstripout
-nbstripout --install
+~/.local/bin/nbstripout --install
 
 # create shortcut on Desktop
 if [ ! -r ~/Desktop/STIR-exercises-README.md ]; then
