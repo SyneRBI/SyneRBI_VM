@@ -30,8 +30,16 @@
 set -e
 # give a sensible error message (note: works only in bash)
 trap 'echo An error occurred in $0 at line $LINENO. Current working-dir: $PWD' ERR
-#SB_TAG='default'
-SB_TAG='master'
+
+STIR_ONLY=1
+
+if [ $STIR_ONLY -eq 1 ]
+then
+    SB_TAG=DoxyAndSWIG
+else
+    #SB_TAG='default'
+    SB_TAG='master'
+fi
 num_parallel=2
 while getopts ht:j: option
  do
@@ -175,7 +183,7 @@ SuperBuild(){
 
 # STIR only
 updateSTIR(){ # optional arg: tag
-  echo "==================== SuperBuild ====================="
+  echo "==================== updating STIR ====================="
   clone_or_pull https://github.com/UCL/STIR.git $1
   mkdir -p ${SIRF_INSTALL_PATH}
   build_and_install STIR -DCMAKE_INSTALL_PREFIX=${SIRF_INSTALL_PATH} \
@@ -238,11 +246,11 @@ update()
   build_and_install $*
 }
 
-if true
+if [ $STIR_ONLY -eq 1 ]
 then
     BUILD_PATH=~/devel/testbuild
     mkdir -p $BUILD_PATH
-    updateSTIR DoxyAndSWIG
+    updateSTIR $SB_TAG
 else
        
 # Launch the SuperBuild to update
@@ -288,7 +296,16 @@ if [ -r ~/.sirfc ]; then
   mv -v ~/.sirfc ~/.sirfc.old
 fi
 echo "export SIRF_SRC_PATH=$SIRF_SRC_PATH" > ~/.sirfrc
-echo "source ${SIRF_INSTALL_PATH}/bin/env_ccppetmr.sh" >> ~/.sirfrc
+if [ $STIR_ONLY -eq 1 ]
+then
+    echo "PATH=${SIRF_INSTALL_PATH}/bin:$PATH" >> ~/.sirfrc
+    echo "PYTHONPATH=${SIRF_INSTALL_PATH}/python" >> ~/.sirfrc
+    echo "LD_LIBRARY_PATH=${SIRF_INSTALL_PATH}/lib" >> ~/.sirfrc
+    echo "export PYTHONPATH LD_LIBRARY_PATH" >> ~/.sirfrc
+else
+    echo "source ${SIRF_INSTALL_PATH}/bin/env_ccppetmr.sh" >> ~/.sirfrc
+fi
+
 echo "export EDITOR=nano" >> ~/.sirfrc
 if [ ! -z "$STIR_exercises_PATH" ]; then
     echo "export STIR_exercises_PATH=$SIRF_SRC_PATH/STIR-exercises" >> ~/.sirfrc
