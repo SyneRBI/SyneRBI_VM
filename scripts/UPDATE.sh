@@ -98,7 +98,7 @@ else
     SIRF_VM_VERSION=0.1
     echo virtual | sudo -S apt-get -y install python-scipy python-docopt python-matplotlib
   else
-    SIRF_VM_VERSION=0.9
+    SIRF_VM_VERSION=MIC2018
   fi
   echo "export SIRF_VM_VERSION=$SIRF_VM_VERSION" > ~/.sirf_VM_version
 fi
