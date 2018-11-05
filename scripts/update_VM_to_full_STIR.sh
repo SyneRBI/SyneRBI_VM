@@ -18,7 +18,7 @@ if [ -z "$SRC_PATH" -o ! -d $SRC_PATH -o ! -d $SRC_PATH/STIR ]; then
 fi
 
 # change build files to also build the STIR executables
-cd $SRC_PATH/testbuild
+cd $SRC_PATH/testbuild/STIR
 cmake -DBUILD_STIR_EXECUTABLES=ON -DBUILD_STIR_SWIG_PYTHON=ON .
 make install
 
