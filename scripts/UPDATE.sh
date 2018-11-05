@@ -173,11 +173,27 @@ SuperBuild(){
   fi
 }
 
+# STIR only
+updateSTIR(){ # optional arg: tag
+  echo "==================== SuperBuild ====================="
+  clone_or_pull https://github.com/UCL/STIR.git $1
+  mkdir -p ${SIRF_INSTALL_PATH}
+  build_and_install STIR -DCMAKE_INSTALL_PREFIX=${SIRF_INSTALL_PATH} \
+        -DBUILD_SWIG_PYTHON=ON \
+        -DBUILD_TESTING=OFF \
+        -DBUILD_DOCUMENTATION=ON \
+        -DGRAPHICS=None \
+        -DCMAKE_CXX_STANDARD=11 \
+        -DSTIR_OPENMP=ON
+}
+
 # define a function to get the source
 # arguments: name_of_repo [git_ref]
 clone_or_pull()
 {
-  repo=$1
+  repoURL=$1
+  repo=`basename $1`
+  repo=${repo/.git//}
   git_ref=${2:-master} # default to master
   echo "======================  Getting/updating source for $repo"
   cd $SIRF_SRC_PATH
@@ -187,7 +203,7 @@ clone_or_pull()
     git fetch
     git pull
   else
-    git clone --recursive https://github.com/CCPPETMR/$repo
+    git clone --recursive $repoURL
     cd $repo
   fi
   git checkout $git_ref
@@ -201,7 +217,7 @@ build_and_install()
   repo=$1
   shift
   echo "======================  Building $repo"
-  cd $SIRF_BUILD_PATH
+  cd $BUILD_PATH
   if [ -d $repo ]
   then
     cd $repo
@@ -209,10 +225,10 @@ build_and_install()
   else
     mkdir $repo
     cd $repo
-    $CMAKE $* $SIRF_SRC_PATH/$repo
+    cmake $* $SIRF_SRC_PATH/$repo
   fi
   echo "======================  Installing $repo"
-  make install
+  make -j${num_parallel} install
 }
 
 # function to do everything
@@ -222,13 +238,29 @@ update()
   build_and_install $*
 }
 
+if true
+then
+    BUILD_PATH=~/devel/testbuild
+    mkdir -p $BUILD_PATH
+    updateSTIR DoxyAndSWIG
+else
+       
 # Launch the SuperBuild to update
 SuperBuild $SB_TAG
 
 # Get extra python tools
-clone_or_pull ismrmrd-python-tools
+clone_or_pull  https://github.com/CCPPETMR/ismrmrd-python-tools.git
 cd $SIRF_SRC_PATH/ismrmrd-python-tools
 python setup.py install --user
+
+# install the SIRF-Exercises
+cd $SIRF_SRC_PATH
+clone_or_pull  https://github.com/CCPPETMR/SIRF-Exercises.git
+python -m pip install --user nbstripout
+cd $SIRF_SRC_PATH/SIRF-Exercises
+~/.local/bin/nbstripout --install
+
+fi
 
 # check STIR-exercises
 cd $SIRF_SRC_PATH
@@ -239,13 +271,6 @@ fi
 
 # copy scripts into the path
 cp -vp $SIRF_SRC_PATH/CCPPETMR_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
-
-# install the SIRF-Exercises
-cd $SIRF_SRC_PATH
-clone_or_pull SIRF-Exercises
-python -m pip install --user nbstripout
-cd $SIRF_SRC_PATH/SIRF-Exercises
-~/.local/bin/nbstripout --install
 
 # copy help file to Desktop
 if [ ! -d ~/Desktop ]
