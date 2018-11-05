@@ -30,7 +30,8 @@
 set -e
 # give a sensible error message (note: works only in bash)
 trap 'echo An error occurred in $0 at line $LINENO. Current working-dir: $PWD' ERR
-SB_TAG='default'
+#SB_TAG='default'
+SB_TAG='master'
 num_parallel=2
 while getopts ht:j: option
  do
