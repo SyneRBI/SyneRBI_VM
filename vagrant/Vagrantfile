@@ -98,13 +98,11 @@ Vagrant.configure("2") do |config|
     adduser $SIRFUSERNAME sudo
     { echo $SIRFPASS; echo $SIRFPASS; } | passwd $SIRFUSERNAME 
 
-	# remove serial port from grub configuration
+	# remove serial port from grub configuration and update configuration
 	sed -i 's/ console=ttyS0//' /etc/default/grub.d/50-cloudimg-settings.cfg
     update-grub
 	# update the apt-get database
     apt-get update
-	# mark grup as hold as it requires user intervention on upgrade!
-	apt-mark hold grub-pc
 	# upgrade the list of packages
 	apt-get upgrade -y
 
