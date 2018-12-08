@@ -175,7 +175,7 @@ Vagrant.configure("2") do |config|
     python -m pip install spyder
 
     chown -R $SIRFUSERNAME:users $userHOME
-    sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh -t ubuntu18.04
+    sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh
     
    SHELL
 end
