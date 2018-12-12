@@ -137,7 +137,7 @@ SuperBuild(){
 	  -UGadgetron_URL -UGadgetron_TAG -UISMRMRD_URL \
 	  -UISMRMRD_TAG \
 	  -DUSE_SYSTEM_SWIG=On \
-	  -DUSE_SYSTEM_Boost=On \
+	  -DUSE_SYSTEM_Boost=Off \
 	  -DUSE_SYSTEM_Armadillo=On \
 	  -DUSE_SYSTEM_FFTW3=On \
 	  -DUSE_SYSTEM_HDF5=ON \
@@ -146,8 +146,11 @@ SuperBuild(){
   make -j${num_parallel}
 
   if [ ! -f ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml ]
-  then 
-    cp ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml.example ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml
+  then
+      if [ -f ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml.example ]
+      then
+          cp ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml.example ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml
+      fi
   fi
 
   if [ $SIRF_VM_VERSION = "0.9" ] 
@@ -169,7 +172,9 @@ SuperBuild(){
 # arguments: name_of_repo [git_ref]
 clone_or_pull()
 {
-  repo=$1
+  repoURL=$1
+  repo=`basename $1`
+  repo=${repo/.git//}
   git_ref=${2:-master} # default to master
   echo "======================  Getting/updating source for $repo"
   cd $SIRF_SRC_PATH
@@ -179,7 +184,7 @@ clone_or_pull()
     git fetch
     git pull
   else
-    git clone --recursive https://github.com/CCPPETMR/$repo
+    git clone --recursive $repoURL
     cd $repo
   fi
   git checkout $git_ref
@@ -193,7 +198,7 @@ build_and_install()
   repo=$1
   shift
   echo "======================  Building $repo"
-  cd $SIRF_BUILD_PATH
+  cd $BUILD_PATH
   if [ -d $repo ]
   then
     cd $repo
@@ -201,10 +206,10 @@ build_and_install()
   else
     mkdir $repo
     cd $repo
-    $CMAKE $* $SIRF_SRC_PATH/$repo
+    cmake $* $SIRF_SRC_PATH/$repo
   fi
   echo "======================  Installing $repo"
-  make install
+  make -j${num_parallel} install
 }
 
 # function to do everything
@@ -218,9 +223,18 @@ update()
 SuperBuild $SB_TAG
 
 # Get extra python tools
-clone_or_pull ismrmrd-python-tools
+clone_or_pull  https://github.com/CCPPETMR/ismrmrd-python-tools.git
 cd $SIRF_SRC_PATH/ismrmrd-python-tools
 python setup.py install --user
+
+# install the SIRF-Exercises
+cd $SIRF_SRC_PATH
+clone_or_pull  https://github.com/CCPPETMR/SIRF-Exercises.git
+python -m pip install --user nbstripout
+cd $SIRF_SRC_PATH/SIRF-Exercises
+PY_USER_BIN=`python -c 'import site; import os; print ( os.path.join(site.USER_BASE , "bin") )'`
+export PATH=${PY_USER_BIN}:${PATH}
+nbstripout --install
 
 # check STIR-exercises
 cd $SIRF_SRC_PATH
@@ -231,14 +245,6 @@ fi
 
 # copy scripts into the path
 cp -vp $SIRF_SRC_PATH/CCPPETMR_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
-
-# install the SIRF-Exercises
-cd $SIRF_SRC_PATH
-clone_or_pull SIRF-Exercises
-python -m pip install --user nbstripout
-export PATH=${PATH}:`python -m site --user-base`/bin
-cd $SIRF_SRC_PATH/SIRF-Exercises
-nbstripout --install
 
 # copy help file to Desktop
 if [ ! -d ~/Desktop ]
