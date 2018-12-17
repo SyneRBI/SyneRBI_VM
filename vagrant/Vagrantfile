@@ -20,7 +20,9 @@
 #=========================================================================
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = "bento/ubuntu-18.04"
+  # config.vm.box = "edoubuntu1804"
+  # config.vm.box_version = "1.1"
   config.vm.synced_folder '.', '/vagrant', disabled: true
 
   # Disable automatic box update checking. If you disable this, then
