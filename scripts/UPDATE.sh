@@ -133,9 +133,7 @@ SuperBuild(){
   cd buildVM
   cmake ../SIRF-SuperBuild \
       -DCMAKE_INSTALL_PREFIX=${SIRF_INSTALL_PATH} \
-	  -USIRF_URL -USIRF_TAG -USTIR_URL -USTIR_TAG \
-	  -UGadgetron_URL -UGadgetron_TAG -UISMRMRD_URL \
-	  -UISMRMRD_TAG \
+	  -U\*_URL -U\*_TAG \
 	  -DUSE_SYSTEM_SWIG=On \
 	  -DUSE_SYSTEM_Boost=On \
 	  -DUSE_SYSTEM_Armadillo=On \
