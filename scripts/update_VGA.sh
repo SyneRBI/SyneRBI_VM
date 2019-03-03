@@ -68,6 +68,10 @@ else
     fi
 fi
 
+if [ -z "$VGArun" ]; then
+    exit 1
+fi
+
 echo ""
 echo "I will now attempt to run $VGArun"
 echo "(even if things above failed)"
@@ -83,14 +87,6 @@ sh $VGArun
 # clean up
 if [ -r /media/VGAiso/VBoxLinuxAdditions.run ]; then
   umount /media/VGAiso
-  # don't delete the iso in case we need to re-run
-  echo ""
-  #echo "You could delete /tmp/VBoxGuestAdditions_${vboxver}.iso"
-fi
-
-# clean up
-if [ -r /media/cdrom/VBoxLinuxAdditions.run ]; then
-  umount /media/cdrom
   # don't delete the iso in case we need to re-run
   echo ""
   #echo "You could delete /tmp/VBoxGuestAdditions_${vboxver}.iso"
