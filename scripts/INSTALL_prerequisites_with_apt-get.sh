@@ -16,7 +16,7 @@ echo "Installing Gadgetron pre-requisites..."
 
 $SUDO apt-get install -y --no-install-recommends libhdf5-serial-dev git-core cmake \
       build-essential libfftw3-dev h5utils \
-      hdf5-tools hdfview liblapack-dev \
+      hdf5-tools hdfview libhdf5-dev liblapack-dev \
       libarmadillo-dev libace-dev  \
       libgtest-dev \
       libopenblas-dev libatlas-base-dev \
