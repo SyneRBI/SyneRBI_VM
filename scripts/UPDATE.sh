@@ -133,15 +133,14 @@ SuperBuild(){
   cd buildVM
   cmake ../SIRF-SuperBuild \
       -DCMAKE_INSTALL_PREFIX=${SIRF_INSTALL_PATH} \
-	  -USIRF_URL -USIRF_TAG -USTIR_URL -USTIR_TAG \
-	  -UGadgetron_URL -UGadgetron_TAG -UISMRMRD_URL \
-	  -UISMRMRD_TAG \
+	  -U\*_URL -U\*_TAG \
 	  -DUSE_SYSTEM_SWIG=On \
 	  -DUSE_SYSTEM_Boost=On \
 	  -DUSE_SYSTEM_Armadillo=On \
 	  -DUSE_SYSTEM_FFTW3=On \
 	  -DUSE_SYSTEM_HDF5=ON \
 	  -DBUILD_siemens_to_ismrmrd=On \
+          -DUSE_ITK=ON \
 	  -DDEVEL_BUILD=OFF
   make -j${num_parallel}
 
