@@ -14,22 +14,9 @@ set -e
 
 echo "Installing Gadgetron pre-requisites..."
 APT_GET_INSTALL="$SUDO apt-get install -y --no-install-recommends -V"
-${APT_GET_INSTALL} libhdf5-serial-dev
-${APT_GET_INSTALL} git
-${APT_GET_INSTALL} build-essential
-${APT_GET_INSTALL} libfftw3-dev
-${APT_GET_INSTALL} h5utils
-${APT_GET_INSTALL} hdf5-tools
-${APT_GET_INSTALL} hdfview
-${APT_GET_INSTALL} liblapack-dev
-${APT_GET_INSTALL} libarmadillo-dev
-${APT_GET_INSTALL} libace-dev
-${APT_GET_INSTALL} libgtest-dev
-${APT_GET_INSTALL} libopenblas-dev libatlas-base-dev
-${APT_GET_INSTALL} libatlas-base-dev
-${APT_GET_INSTALL} libxml2-dev libxslt1-dev
-${APT_GET_INSTALL} libxslt1-dev
-${APT_GET_INSTALL} cython
+${APT_GET_INSTALL} libhdf5-serial-dev git build-essential libfftw3-dev h5utils hdf5-tools \
+	hdfview liblapack-dev libarmadillo-dev libace-dev libgtest-dev libopenblas-dev \
+	libatlas-base-dev libatlas-base-dev libxml2-dev libxslt1-dev cython
 
 echo "Installing boost 1.65 or later"
 # first find current boost version (if any)
