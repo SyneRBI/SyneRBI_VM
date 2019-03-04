@@ -30,17 +30,24 @@ $SUDO apt-get install -y --no-install-recommends libhdf5-serial-dev git-core cma
 echo "Installing boost 1.65 or later"
 # first find current boost version (if any)
 # the 'tail' makes sure we use the last one listed by apt-cache in case there is more than 1 version
-tmp=`apt-cache search libboost|grep ALL|egrep libboost[1-9]|tail -n 1`
-boost_major=${tmp:8:1}
-boost_minor=${tmp:10:2}
+function find_boost_version() {
+  tmp=`apt-cache search libboost|grep ALL|egrep libboost[1-9]|tail -n 1`
+  boost_major=${tmp:8:1}
+  boost_minor=${tmp:10:2}
+}
+
+find_boost_version
+
 echo "Found Boost major version ${boost_major}, minor ${boost_minor}"
 if [ $boost_major -gt 1 -o $boost_minor -gt 64 ]
 then
+    echo "installing Boost ${boost_major}.${boost_minor} from system apt"
     $SUDO apt install -y libboost-dev
 else    
     # packaged boost is too old
     # we need to find a ppa that has it. This is unsafe and likely prone to falling over
     # when the ppa is no longer maintained
+    echo "trying to find boost from ppa:mhier/libboost-latest"
     $SUDO apt install -y software-properties-common
     $SUDO add-apt-repository -y  ppa:mhier/libboost-latest
     $SUDO apt update
@@ -48,7 +55,9 @@ else
     $SUDO apt remove -y libboost-all-dev
     $SUDO apt auto-remove -y
     # TODO: find out which version is in the ppa
-    $SUDO apt install -y libboost1.68-dev
+    find_boost_version
+    echo "installing Boost ${boost_major}.${boost_minor} from system apt"
+    $SUDO apt install -y libboost${boost_major}.${boost_minor}-dev
 fi
 
 echo "Installing SWIG..."
