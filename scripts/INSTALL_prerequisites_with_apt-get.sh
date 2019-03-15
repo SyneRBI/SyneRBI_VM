@@ -11,9 +11,10 @@
 set -e
 
 #if [ -z "SUDO" ]; then SUDO=sudo; fi
+export DEBIAN_FRONTEND=noninteractive
 
 echo "Installing Gadgetron pre-requisites..."
-APT_GET_INSTALL="$SUDO apt-get install -y --no-install-recommends -V"
+APT_GET_INSTALL="$SUDO apt-get update && $SUDO apt-get install -y --no-install-recommends -V"
 ${APT_GET_INSTALL} libhdf5-serial-dev git build-essential libfftw3-dev h5utils hdf5-tools \
 	hdfview liblapack-dev libarmadillo-dev libace-dev libgtest-dev libopenblas-dev \
 	libatlas-base-dev libatlas-base-dev libxml2-dev libxslt1-dev cython
@@ -33,13 +34,13 @@ echo "Found Boost major version ${boost_major}, minor ${boost_minor}"
 if [ $boost_major -gt 1 -o $boost_minor -gt 64 ]
 then
     echo "installing Boost ${boost_major}.${boost_minor} from system apt"
-    $SUDO apt install -y libboost-dev
+    ${APT_GET_INSTALL} libboost-dev
 else    
     # packaged boost is too old
     # we need to find a ppa that has it. This is unsafe and likely prone to falling over
     # when the ppa is no longer maintained
     echo "trying to find boost from ppa:mhier/libboost-latest"
-    $SUDO apt install -y software-properties-common
+    ${APT_GET_INSTALL} software-properties-common
     $SUDO add-apt-repository -y  ppa:mhier/libboost-latest
     $SUDO apt update
     # get rid of the default installed boost version
@@ -48,26 +49,26 @@ else
     # TODO: find out which version is in the ppa
     find_boost_version
     echo "installing Boost ${boost_major}.${boost_minor} from system apt"
-    $SUDO apt install -y libboost${boost_major}.${boost_minor}-dev
+    ${APT_GET_INSTALL} libboost${boost_major}.${boost_minor}-dev
 fi
 
 echo "Installing SWIG..."
 
-$SUDO apt-get install -y --no-install-recommends swig
+${APT_GET_INSTALL} --no-install-recommends swig
 
 echo "Installing doxygen related packages"
-$SUDO apt-get install -y --no-install-recommends doxygen graphviz
+${APT_GET_INSTALL} --no-install-recommends doxygen graphviz
 
 # replaced with pip install
 #echo "Installing python libraries etc"
 #$SUDO apt-get install -y --no-install-recommends  python-scipy python-docopt  python-numpy python-h5py python-matplotlib python-libxml2 python-psutil python-tk python-nose
 
 echo "installing glog"
-$SUDO apt-get install -y libgoogle-glog-dev
+${APT_GET_INSTALL} libgoogle-glog-dev
 
 echo "Installing python APT packages"
 # we will use pip for most
 # some extra package needed for jupyter
 qt=pyqt5
-$SUDO apt-get install -y python-dev python-pip python-tk python-${qt} python-${qt}.qtsvg python-${qt}.qtwebkit
+${APT_GET_INSTALL} python-dev python-pip python-tk python-${qt} python-${qt}.qtsvg python-${qt}.qtwebkit
 echo "Run INSTALL_python_packages.sh after this."
