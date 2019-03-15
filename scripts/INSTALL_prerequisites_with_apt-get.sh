@@ -34,7 +34,20 @@ echo "Found Boost major version ${boost_major}, minor ${boost_minor}"
 if [ $boost_major -gt 1 -o $boost_minor -gt 64 ]
 then
     echo "installing Boost ${boost_major}.${boost_minor} from system apt"
+<<<<<<< HEAD
     ${APT_GET_INSTALL} libboost-dev
+=======
+    $SUDO apt install -y libboost-dev
+    $SUDO apt install -y libboost-chrono-dev
+    $SUDO apt install -y libboost-filesystem-dev
+    $SUDO apt install -y libboost-thread-dev
+    $SUDO apt install -y libboost-date-time-dev
+    $SUDO apt install -y libboost-regex-dev
+    $SUDO apt install -y libboost-program-options-dev
+    $SUDO apt install -y libboost-atomic-dev
+    $SUDO apt install -y libboost-test-dev
+    $SUDO apt install -y libboost-timer-dev
+>>>>>>> e2b60c1f6188b5c76494aee79af08f09456b6060
 else    
     # packaged boost is too old
     # we need to find a ppa that has it. This is unsafe and likely prone to falling over

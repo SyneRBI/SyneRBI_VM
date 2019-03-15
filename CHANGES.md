@@ -1,5 +1,13 @@
 # ChangeLog
 
+## 2.0rc1
+- upgraded to Ubuntu 18.04
+- add port forwarding (8888 -> 8888 for jupyter)
+- install jupyter notebook
+- does not install a browser
+- add cython for CIL
+
+
 ## 1.1.1
 - added nbstripout (https://github.com/kynan/nbstripout) to handle conflicts in SIRF-Exercises
 
