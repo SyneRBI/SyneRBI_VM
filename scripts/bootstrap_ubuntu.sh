@@ -68,4 +68,4 @@ python -m pip install spyder
 
 chown -R $SIRFUSERNAME:users $userHOME
 # the ubuntu18.04 branch latest commit
-sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh -t origin/ubuntu18.04
+sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh
