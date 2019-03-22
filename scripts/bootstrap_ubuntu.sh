@@ -1,13 +1,19 @@
 #!/bin/bash    
-# fail hard on any step
-set -ex
+
+set -x
 SIRFUSERNAME=sirfuser
 SIRFPASS=virtual
 
-adduser $SIRFUSERNAME
-adduser $SIRFUSERNAME sudo
-{ echo $SIRFPASS; echo $SIRFPASS; } | passwd $SIRFUSERNAME 
+# check if user exists. if not create it. Useful for vagrant provision
+id -u $SIRFUSERNAME
+if [ $? -eq "1" ] ; then
+  adduser $SIRFUSERNAME
+  adduser $SIRFUSERNAME sudo
+  { echo $SIRFPASS; echo $SIRFPASS; } | passwd $SIRFUSERNAME 
+fi
 
+# fail hard on any step
+set -ex
 # update the apt-get database
 export DEBIAN_FRONTEND=noninteractive
 apt-get update && apt-get upgrade -y -o Dpkg::Options::=--force-confnew
@@ -49,10 +55,15 @@ sudo cp -v vagrant /var/lib/AccountsService/users/vagrant
 # Could add custom logos here: /etc/gdm3/greeter.dconf-defaults 
 
 userHOME=/home/$SIRFUSERNAME
-mkdir $userHOME/devel
+
+if [ ! -d $userHOME ]; then
+  mkdir $userHOME/devel 
+fi
 cd $userHOME/devel
 
-git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
+if [ ! -d $userHome/devel/CCPPETMR_VM ]; then
+  git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
+fi
 cd CCPPETMR_VM
 git checkout ubuntu18.04
 
