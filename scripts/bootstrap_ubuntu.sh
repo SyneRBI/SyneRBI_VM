@@ -63,9 +63,14 @@ cd $userHOME/devel
 
 if [ ! -d $userHome/devel/CCPPETMR_VM ]; then
   git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
+  cd CCPPETMR_VM
+  git checkout ubuntu18.04
+else
+  cd CCPPETMR_VM
+  git checkout ubuntu18.04
+  git pull
 fi
-cd CCPPETMR_VM
-git checkout ubuntu18.04
+
 
 
 bash $userHOME/devel/CCPPETMR_VM/scripts/INSTALL_prerequisites_with_apt-get.sh
