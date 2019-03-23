@@ -12,9 +12,9 @@ set -e
 
 #if [ -z "SUDO" ]; then SUDO=sudo; fi
 export DEBIAN_FRONTEND=noninteractive
-
+SUDO=sudo
 echo "Installing Gadgetron pre-requisites..."
-APT_GET_INSTALL="$SUDO apt-get update && $SUDO apt-get install -y --no-install-recommends"
+APT_GET_INSTALL="$SUDO apt-get install -y --no-install-recommends"
 ${APT_GET_INSTALL} libhdf5-serial-dev git build-essential libfftw3-dev h5utils hdf5-tools \
 	hdfview liblapack-dev libarmadillo-dev libace-dev libgtest-dev libopenblas-dev \
 	libatlas-base-dev libatlas-base-dev libxml2-dev libxslt1-dev cython

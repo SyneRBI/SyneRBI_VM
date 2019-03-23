@@ -56,7 +56,7 @@ sudo cp -v vagrant /var/lib/AccountsService/users/vagrant
 
 userHOME=/home/$SIRFUSERNAME
 
-if [ ! -d $userHOME ]; then
+if [ ! -d $userHOME/devel ]; then
   mkdir $userHOME/devel 
 fi
 cd $userHOME/devel
