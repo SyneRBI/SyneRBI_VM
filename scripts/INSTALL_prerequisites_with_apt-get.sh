@@ -58,7 +58,7 @@ else
     # TODO: find out which version is in the ppa
     find_boost_version
     echo "installing Boost ${boost_major}.${boost_minor} from system apt"
-    ${APT_GET_INSTALL} libboost${boost_major}.${boost_minor}-dev
+    ${APT_GET_INSTALL} libboost${boost_major}.${boost_minor}-all-dev
 fi
 
 echo "Installing SWIG..."
