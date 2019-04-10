@@ -77,9 +77,6 @@ bash $userHOME/devel/CCPPETMR_VM/scripts/INSTALL_python_packages.sh
 
 # port 8888 is forwarded to 8888 so the user can use the host browser
 # Therefore no browser is installed on the VM
-#python -m pip install jupyter
-#python -m pip install spyder
 
 chown -R $SIRFUSERNAME:users $userHOME
-# the ubuntu18.04 branch latest commit
 sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh
