@@ -27,4 +27,9 @@ location=`dirname $0`
 
 $location/configure_gnome.sh
 
+# configure jupyter notebook
+mkdir ~/.jupyter
+jupyter notebook password
+
 $location/zero_fill.sh
+
