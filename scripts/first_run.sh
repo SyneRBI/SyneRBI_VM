@@ -31,6 +31,7 @@ $location/configure_gnome.sh
 mkdir ~/.jupyter
 jupyter notebook --generate-config
 # requires to set the following variable manually by editing the file
+# jupyter_notebook_config.py
 # c.NotebookApp.ip = '0.0.0.0'
 jupyter notebook password
 
