@@ -64,10 +64,8 @@ cd $userHOME/devel
 if [ ! -d $userHOME/devel/CCPPETMR_VM ]; then
   git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
   cd CCPPETMR_VM
-  git checkout ubuntu18.04
 else
   cd CCPPETMR_VM
-  git checkout ubuntu18.04
   git pull
 fi
 
@@ -84,4 +82,4 @@ bash $userHOME/devel/CCPPETMR_VM/scripts/INSTALL_python_packages.sh
 
 chown -R $SIRFUSERNAME:users $userHOME
 # the ubuntu18.04 branch latest commit
-sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh -t origin/add_cil
+sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh
