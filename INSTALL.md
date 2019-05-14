@@ -107,16 +107,6 @@ If you want you can unmount the folder by typing
 
         sudo umount -t vboxsf MyLaptop
 
-## Using VM as a Gadgetron server
+## Using the VM as server
 
-You can use CCPPETMR Virtual Machine as a Gadgetron server if you cannot install Gadgetron on you computer (we ourselves have not yet succeeded in installing it under Windows). For this, you need to set up communication between your computer and VM in the following manner.
-
-* Start Virtual Machine.
-
-* Forward port 9002 to VM (in Oracle VM VirtualBox Manager: go to Settings->Network, Advanced, click on Port Forwarding, add new forwarding rule by clicking on +, set Host Port and Guest Port to 9002).
-
-* Open a new terminal on the VM and type 'gadgetron' there.
-
-* Keep the VM running and run Python or Matlab on your normal computer.
-
-This will enable you to run SIRF MR demos on your computer.
+See [here](https://github.com/CCPPETMR/CCPPETMR_VM/blob/master/Using_VM_as_server.md)
