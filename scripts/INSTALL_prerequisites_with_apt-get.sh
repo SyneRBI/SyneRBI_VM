@@ -83,6 +83,6 @@ qt=pyqt5
 ${APT_GET_INSTALL} python-dev python-pip python-tk python-${qt} python-${qt}.qtsvg python-${qt}.qtwebkit
 
 echo "Installing CIL pre-requisites..."
-${APT_GET_INSTALL} cython autotools-dev automake autoge autoconf libtool python-h5py python-wget
+${APT_GET_INSTALL} cython autotools-dev automake autogen autoconf libtool python-h5py python-wget
 
 echo "Run INSTALL_python_packages.sh after this."
