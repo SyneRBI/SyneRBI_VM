@@ -17,7 +17,7 @@ echo "Installing Gadgetron pre-requisites..."
 APT_GET_INSTALL="$SUDO apt-get install -y --no-install-recommends"
 ${APT_GET_INSTALL} libhdf5-serial-dev git build-essential libfftw3-dev h5utils hdf5-tools \
 	liblapack-dev libarmadillo-dev libace-dev libgtest-dev libopenblas-dev \
-	libatlas-base-dev libatlas-base-dev libxml2-dev libxslt1-dev cython unzip
+	libatlas-base-dev libatlas-base-dev libxml2-dev libxslt1-dev unzip
 
 echo "Installing boost 1.65 or later"
 # first find current boost version (if any)
@@ -81,4 +81,8 @@ echo "Installing python APT packages"
 # some extra package needed for jupyter
 qt=pyqt5
 ${APT_GET_INSTALL} python-dev python-pip python-tk python-${qt} python-${qt}.qtsvg python-${qt}.qtwebkit
+
+echo "Installing CIL pre-requisites..."
+${APT_GET_INSTALL} cython autotools-dev automake autoge autoconf libtool python-h5py python-wget
+
 echo "Run INSTALL_python_packages.sh after this."
