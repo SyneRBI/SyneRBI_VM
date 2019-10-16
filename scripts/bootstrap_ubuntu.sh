@@ -81,4 +81,4 @@ bash $userHOME/devel/CCPPETMR_VM/scripts/INSTALL_python_packages.sh
 # Therefore no browser is installed on the VM
 
 chown -R $SIRFUSERNAME:users $userHOME
-sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh
+sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh -t origin/master
