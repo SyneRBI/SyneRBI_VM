@@ -156,7 +156,8 @@ SuperBuild(){
         -DCCPi-Framework_TAG=origin/master \
         -DCCPi-FrameworkPlugins_TAG=origin/master \
         -DCCPi-Astra_TAG=origin/master \
-        -DCCPi-Regularisation-Toolkit=origin/master
+        -DCCPi-Regularisation-Toolkit=origin/master \
+        -DNIFTYREG_USE_CUDA=OFF
   make -j${num_parallel}
 
   if [ ! -f ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml ]
