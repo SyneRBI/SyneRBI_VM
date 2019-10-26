@@ -152,11 +152,6 @@ SuperBuild(){
         -DUSE_ITK=ON \
         -DDEVEL_BUILD=OFF\
         -DBUILD_CIL=ON\
-        -DSIRF_TAG=origin/add_to_sirf_classes \
-        -DCCPi-Framework_TAG=origin/master \
-        -DCCPi-FrameworkPlugins_TAG=origin/master \
-        -DCCPi-Astra_TAG=origin/master \
-        -DCCPi-Regularisation-Toolkit=origin/master \
         -DNIFTYREG_USE_CUDA=OFF
   make -j${num_parallel}
 
