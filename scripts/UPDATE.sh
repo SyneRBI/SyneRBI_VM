@@ -255,6 +255,10 @@ if [ -d STIR-exercises ]; then
   git pull
 fi
 
+# install the CIL-Demos
+cd $SIRF_SRC_PATH
+git clone --depth=1 --branch symposium2019  https://github.com/vais-ral/CIL-Demos.git
+
 # copy help file to Desktop
 if [ ! -d ~/Desktop ]
 then
