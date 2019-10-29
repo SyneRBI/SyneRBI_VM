@@ -70,4 +70,4 @@ $PYTHON -m pip install $PIPOPTIONS --only-binary=numpy,scipy,matplotlib numpy sc
 $PYTHON -m pip install $PIPOPTIONS jupyter spyder==3.2
 $PYTHON -m pip uninstall $PIPOPTIONS -y spyder-kernels
 # CIL
-$PYTHON -m pip install $PIPOPTIONS --upgrade pillow==5
+$PYTHON -m pip install $PIPOPTIONS pillow==5
