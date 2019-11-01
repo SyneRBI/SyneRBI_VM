@@ -263,6 +263,14 @@ if [ -d CIL-Demos ]; then
 else
   git clone --depth=1 --branch symposium2019  https://github.com/vais-ral/CIL-Demos.git
 fi
+
+# update jupyter directory
+if [ -f ~/.jupyter/jupyter_notebook_config.py ] ; then
+  cat ~/.jupyter/jupyter_notebook_config.py | sed 's/SIRF-Exercises//g' > tmp
+  mv tmp ~/.jupyter/jupyter_notebook_config.py
+fi
+
+
 # copy help file to Desktop
 if [ ! -d ~/Desktop ]
 then
