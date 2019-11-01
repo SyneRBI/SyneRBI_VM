@@ -266,7 +266,7 @@ fi
 
 # update jupyter directory
 if [ -f ~/.jupyter/jupyter_notebook_config.py ] ; then
-  cat ~/.jupyter/jupyter_notebook_config.py | sed 's/SIRF-Exercises//g' > tmp
+  cat ~/.jupyter/jupyter_notebook_config.py | sed 's/SIRF-Exercises\/notebooks//g' > tmp
   mv tmp ~/.jupyter/jupyter_notebook_config.py
 fi
 
