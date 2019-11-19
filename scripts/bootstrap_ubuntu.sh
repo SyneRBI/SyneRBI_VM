@@ -67,6 +67,7 @@ if [ ! -d $userHOME/devel/CCPPETMR_VM ]; then
   git checkout cil_lite
 else
   cd CCPPETMR_VM
+  git fetch
   git checkout cil_lite
   git pull
 fi
