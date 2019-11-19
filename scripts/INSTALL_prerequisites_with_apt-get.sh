@@ -83,6 +83,7 @@ qt=pyqt5
 ${APT_GET_INSTALL} python-dev python-pip python-tk python-${qt} python-${qt}.qtsvg python-${qt}.qtwebkit
 
 echo "Installing CIL pre-requisites..."
-${APT_GET_INSTALL} cython autotools-dev automake autogen autoconf libtool python-h5py python-wget
+${APT_GET_INSTALL} cython python-h5py python-wget
+# dependency for ASTRA-toolbox autotools-dev automake autogen autoconf libtool
 
 echo "Run INSTALL_python_packages.sh after this."

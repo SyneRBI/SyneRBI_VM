@@ -151,7 +151,7 @@ SuperBuild(){
         -DBUILD_siemens_to_ismrmrd=On \
         -DUSE_ITK=ON \
         -DDEVEL_BUILD=OFF\
-        -DBUILD_CIL=ON\
+        -DBUILD_CIL_LITE=ON\
         -DNIFTYREG_USE_CUDA=OFF
   make -j${num_parallel}
 
@@ -255,14 +255,6 @@ if [ -d STIR-exercises ]; then
   git pull
 fi
 
-# install the CIL-Demos
-cd $SIRF_SRC_PATH
-if [ -d CIL-Demos ]; then
-  cd CIL-Demos
-  git pull
-else
-  git clone --depth=1 --branch symposium2019  https://github.com/vais-ral/CIL-Demos.git
-fi
 # copy help file to Desktop
 if [ ! -d ~/Desktop ]
 then
