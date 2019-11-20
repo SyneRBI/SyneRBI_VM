@@ -64,11 +64,8 @@ cd $userHOME/devel
 if [ ! -d $userHOME/devel/CCPPETMR_VM ]; then
   git clone https://github.com/CCPPETMR/CCPPETMR_VM.git
   cd CCPPETMR_VM
-  git checkout cil_lite
 else
   cd CCPPETMR_VM
-  git fetch
-  git checkout cil_lite
   git pull
 fi
 
@@ -82,4 +79,4 @@ bash $userHOME/devel/CCPPETMR_VM/scripts/INSTALL_python_packages.sh
 # Therefore no browser is installed on the VM
 
 chown -R $SIRFUSERNAME:users $userHOME
-sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh -t origin/master
+sudo -u $SIRFUSERNAME -H bash $userHOME/devel/CCPPETMR_VM/scripts/UPDATE.sh
