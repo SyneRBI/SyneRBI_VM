@@ -16,10 +16,10 @@ SUDO=sudo
 APT_GET_INSTALL="$SUDO apt-get install -y --no-install-recommends"
 
 echo "Installing linux headers for VGA updates"
-${APT_GET_INSTALL} linux-headers-$(uname -r)
+${APT_GET_INSTALL} build-essential linux-headers-$(uname -r)
 
 echo "Installing Gadgetron pre-requisites..."
-${APT_GET_INSTALL} libhdf5-serial-dev git build-essential libfftw3-dev h5utils hdf5-tools \
+${APT_GET_INSTALL} libhdf5-serial-dev git libfftw3-dev h5utils hdf5-tools \
 	liblapack-dev libarmadillo-dev libace-dev libgtest-dev libopenblas-dev libpugixml-dev \
 	libatlas-base-dev libatlas-base-dev libxml2-dev libxslt1-dev unzip
 
