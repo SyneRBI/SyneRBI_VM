@@ -154,6 +154,7 @@ SuperBuild(){
         -DBUILD_siemens_to_ismrmrd=OFF \
         -DBUILD_GADGETRON=OFF \
         -DBUILD_SIRF=OFF \
+        -DBUILD_SIRF_Contribs=OFF \
         -DBUILD_NIFTYREG=OFF \
         -DBUILD_DOCUMENTATION=ON \
         -DUSE_ITK=ON \
