@@ -12,13 +12,13 @@ echo "Things will go horribly wrong otherwise."
 
 # first do a very brief check
 SRC_PATH=$SIRF_SRC_PATH
-if [ -z "$SRC_PATH" -o ! -d $SRC_PATH -o ! -d $SRC_PATH/STIR ]; then
+if [ -z "$SRC_PATH" -o ! -d $SRC_PATH -o ! -d $SRC_PATH/buildVM ]; then
    echo "Directories not found. Run update_VM.sh"
    exit 1
 fi
 
 # change build files to also build the STIR executables
-cd $SIRF_PATH/../..
+cd $SRC_PATH/buildVM
 cmake -DSTIR_BUILD_EXECUTABLES=ON -DSTIR_BUILD_SWIG_PYTHON=ON .
 make -j2 
 
