@@ -262,18 +262,22 @@ fi
 # copy scripts into the path
 cp -vp $SIRF_SRC_PATH/CCPPETMR_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
 
-# Get extra python tools
-clone_or_pull  https://github.com/CCPPETMR/ismrmrd-python-tools.git
-cd $SIRF_SRC_PATH/ismrmrd-python-tools
-python setup.py install --user
+if [ -z "STIR_ONLY" ]; then
+    # Get extra python tools
+    clone_or_pull  https://github.com/CCPPETMR/ismrmrd-python-tools.git
+    cd $SIRF_SRC_PATH/ismrmrd-python-tools
+    python setup.py install --user
+fi
 
 # install the SIRF-Exercises
-cd $SIRF_SRC_PATH
-clone_or_pull  https://github.com/CCPPETMR/SIRF-Exercises.git
-cd $SIRF_SRC_PATH/SIRF-Exercises
-PY_USER_BIN=`python -c 'import site; import os; print ( os.path.join(site.USER_BASE , "bin") )'`
-export PATH=${PY_USER_BIN}:${PATH}
-nbstripout --install
+if [ -z "STIR_ONLY" ]; then
+    cd $SIRF_SRC_PATH
+    clone_or_pull  https://github.com/CCPPETMR/SIRF-Exercises.git
+    cd $SIRF_SRC_PATH/SIRF-Exercises
+    PY_USER_BIN=`python -c 'import site; import os; print ( os.path.join(site.USER_BASE , "bin") )'`
+    export PATH=${PY_USER_BIN}:${PATH}
+    nbstripout --install
+fi
 
 # check STIR-exercises
 cd $SIRF_SRC_PATH
