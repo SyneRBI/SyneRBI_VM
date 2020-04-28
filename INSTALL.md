@@ -1,28 +1,33 @@
-# CCPPETMR Virtual Machine installation and running instructions
+# CCPPETMR Virtual Machine: Installation and running of pre-built machine
 
 If you have any problems, please first re-check this web-page. If you cannot solve your issue, please email CCP-PETMR-USERS @ JISCMAIL.AC.UK
 
 
 ## Initial download and installation
-This section assumes you want to use our pre-configured VM (which is recommended!). Check the [README](README.md) for instructions on how to build a new VM yourself.
+This section assumes you want to use our pre-configured VM (which is recommended!). If you want to build a new VM yourself, then check the [README](README.md) for instructions.
 
 1. Make sure you have enough free disk-space on your laptop (~10GB for installation).
 
-2. Install [VirtualBox](https://www.virtualbox.org), our [Download page](http://www.ccppetmr.ac.uk/downloads) specifies the recommended version. Please note that this will require administrator permissions. 
+2. Install VirtualBox (VB), our [Download page](http://www.ccppetmr.ac.uk/downloads) specifies the recommended version. 
+(If it is older than the current default download from VB, you can [get an older version here](https://www.virtualbox.org/wiki/Download_Old_Builds)). Please note that this will require administrator permissions on your computer. The "host" operating system refers to your computer. 
 You do not need to install the Oracle extensions to VirtualBox, although it might come in handy for USB support. 
 Although other Virtual Machine software might work, we have not tried this and will not be able to help to get this going.
   Some extra pointers if you experience problems with installing VirtualBox
     - On older Ubuntu versions (e.g. 15.10), there were some problems installing VirtualBox related to `libvpx`, [check here for some help](https://forums.virtualbox.org/viewtopic.php?f=7&t=74050).
     - If your VirtualBox is too old, you might experience problems with networking etc. Please use at least 5.0.40 (at least 5.2.6 on a Mac).
+    
+    For Macs, the installation of Virtual Box might require you to alter your security settings. 
+    - If you receive an error along the lines of `kernel driver not installed (rc=-1908)`, the following might help. Click on the Apple icon in the top-left of your screen and then `System Preferences->Security & Privacy->General`. Click the padlock in the bottom-left and enter your password to be able to make changes to this page. Click `Allow` next to the Virtual Box text. Hopefully the problem will have been sorted.
+    - If the installation takes you directly to the `Security and Privacy` window, select `Allow` (the VB is labelled as from Oracle). When the installer asks if it should Move to Trash, say `Keep` because you need to re-run the installation again with this revised security setting. Second time around, you can move it to trash.
 
 3. Download the preinstalled virtual machine from http://www.ccppetmr.ac.uk/downloads.
-Warning: this file is ~1.8GB. (You can of course download to a USB stick to save space on your hard-disk).
+Warning: this file can be ~4.9GB. (You can download to a USB stick or hard drive to save space on your hard-disk).
 
 4. Open the downloaded OVA file (double-click or whatever is appropriate for your system). This should start VirtualBox with the "Import" dialog box.
 
 5. Change settings of the virtual machine (you can still change this afterwards by using the Settings menu of VirtualBox). The only things that need your attention:
 	- CPU: use the same number of CPUs (i.e. cores) as your laptop (or 1 less)
-	- RAM: use about half the RAM of your laptop (assigning too much RAM will slow down your laptop dramatically, using not enough will slow down the virtual machine. 1.5GB seems to be enough though.)
+	- RAM: use about half the RAM of your laptop (assigning too much RAM will slow down your laptop dramatically, using not enough will slow down the virtual machine. 1.5GB seems to be enough for most things though.)
 	- Virtual Disk Image: normally this filename is fine but you can save it somewhere else if you like
 
 6. Tick the box "Reinitialise the MAC address of all network cards"
@@ -36,7 +41,7 @@ Warning: this file is ~1.8GB. (You can of course download to a USB stick to save
 Now you can start your virtual machine. If it fails to start with an error like "*virtualbox vt-x is disabled in the bios*", [check here](http://www.howtogeek.com/213795/how-to-enable-intel-vt-x-in-your-computers-bios-or-uefi-firmware/).
 If you see a dialog box about "starting in scaled mode", you can press OK to allow VirtualBox to scale the display larger or smaller, or you can press Cancel and start the machine again without scaling. (See [the Virtualbox site](https://www.virtualbox.org/manual/) for some info on the Host-Key etc).
 
-1. You should get a window where Ubuntu 16.04 will be starting (might take a few minutes). Wait until you see the log-in prompt.
+1. You should get a window where Ubuntu 18.04 will be starting (might take a few minutes). Wait until you see the log-in prompt.
 
 2. Log in as user "sirfuser" with password "virtual" (please note that the default keyboard is with `en_GB` locale: if you have an Azerty-type keyboard, you will have to type "virtuql" until you change your VM keyboard settings). You should get the Gnome3 desktop.
 
@@ -51,7 +56,7 @@ If you see a dialog box about "starting in scaled mode", you can press OK to all
       sudo dpkg-reconfigure keyboard-configuration
       ```
 
-    - To adjust other system settings you can click on the right top corner and then click on the tools icon (spanner and screwdriver) to start the settings app, or click on "Activities" on the top left corner and then type "settings" in the search box and it should open the settings apps.
+    - To adjust other system settings you can click on the right top corner and then click on the tools icon (spanner and screwdriver) to start the settings app, or click on "Activities" on the top left corner and then type "settings" in the search box and it should open the settings apps. If the text and windows are so large it makes using the settings app difficult, try changing the scaling by pressing the small display icon near the bottom right of the VB window. 
 
 4. The VM has been created with a particular version of Virtual Box (see the Download page) and with the [VirtualBox Guest Additions](https://www.virtualbox.org/manual/ch04.html) (VGA) pre-installed. If you have a different (or even the same) version of Virtual Box you might experience [issues](https://github.com/CCPPETMR/CCPPETMR_VM/issues/9), especially [running the X server](https://github.com/CCPPETMR/CCPPETMR_VM/issues/60#issuecomment-367611385). If you are using a different version of VirtualBox we therefore strongly recommend to sync your VGA version as follows:\
 In the menu-bar of the window that contains your VM, click on "Devices" and then "Insert Guest Additions CD". (On a Mac, with the VM window selected, this menu bar is at the top of the screen). If this generates a window inside your VM to run the software on this "CD", say OK. Otherwise, type
@@ -81,7 +86,7 @@ and use "Send the shutdown signal".
  
 This section is optional.
  
-Warning: we strongly recommend to copy data from a shared folder to a “local” folder (in your VM) to avoid a problem with a VB bug.
+Warning: in VB versions before 6.0.6, we strongly recommend to copy data from a shared folder to a “local” folder (in your VM) to avoid a problem with [a VB bug](https://www.virtualbox.org/ticket/9485).
  
 After installing the VGA, you might want to configure a shared directory between the host and the guest machine such that your virtual machine can "see" your "normal" files. Please read [the Virtualbox documentation on Folder Sharing](http://www.virtualbox.org/manual/ch04.html#sharedfolders). 
 Summary of steps (courtesy Nikos Efthimiou):
@@ -102,16 +107,6 @@ If you want you can unmount the folder by typing
 
         sudo umount -t vboxsf MyLaptop
 
-## Using VM as a Gadgetron server
+## Using the VM as server
 
-You can use CCPPETMR Virtual Machine as a Gadgetron server if you cannot install Gadgetron on you computer (we ourselves have not yet succeeded in installing it under Windows). For this, you need to set up communication between your computer and VM in the following manner.
-
-* Start Virtual Machine.
-
-* Forward port 9002 to VM (in Oracle VM VirtualBox Manager: go to Settings->Network, Advanced, click on Port Forwarding, add new forwarding rule by clicking on +, set Host Port and Guest Port to 9002).
-
-* Open a new terminal on the VM and type 'gadgetron' there.
-
-* Keep the VM running and run Python or Matlab on your normal computer.
-
-This will enable you to run SIRF MR demos on your computer.
+See [here](https://github.com/CCPPETMR/CCPPETMR_VM/blob/master/Using_VM_as_server.md)

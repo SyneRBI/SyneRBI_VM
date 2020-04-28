@@ -18,9 +18,9 @@ if [ -z "$SRC_PATH" -o ! -d $SRC_PATH -o ! -d $SRC_PATH/STIR ]; then
 fi
 
 # change build files to also build the STIR executables
-cd $SRC_PATH/testbuild/STIR
-cmake -DBUILD_STIR_EXECUTABLES=ON -DBUILD_STIR_SWIG_PYTHON=ON .
-make install
+cd $SIRF_PATH/../..
+cmake -DSTIR_BUILD_EXECUTABLES=ON -DSTIR_BUILD_SWIG_PYTHON=ON .
+make -j2 
 
 # update/get STIR exercises
 cd $SRC_PATH
@@ -33,7 +33,7 @@ else
 fi
 
 python -m pip install --user nbstripout
-~/.local/bin/nbstripout --install
+nbstripout --install
 
 # create shortcut on Desktop
 if [ ! -r ~/Desktop/STIR-exercises-README.md ]; then

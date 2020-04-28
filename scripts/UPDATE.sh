@@ -1,9 +1,11 @@
 #!/bin/bash
 #
-# Script to install/update the CCP-PETMR VM. It could also be used for any other system
-# but will currently change your .sirfrc. This is to be avoided later on.
+# Script to install/update the CCP-PETMR VM. It could also be used for any
+# other system but will currently change your .sirfrc.
+# This is to be avoided later on.
 #
-# Authors: Kris Thielemans, Evgueni Ovtchinnikov and Edoardo Pasca
+# Authors: Kris Thielemans, Evgueni Ovtchinnikov, Edoardo Pasca,
+# Casper da Costa-Luis
 # Copyright 2016-2018 University College London
 # Copyright 2016-2018 Rutherford Appleton Laboratory STFC
 #
@@ -33,13 +35,7 @@ trap 'echo An error occurred in $0 at line $LINENO. Current working-dir: $PWD' E
 
 STIR_ONLY=1
 
-if [ $STIR_ONLY -eq 1 ]
-then
-    SB_TAG=DoxyAndSWIG
-else
-    #SB_TAG='default'
-    SB_TAG='master'
-fi
+SB_TAG='default'
 num_parallel=2
 while getopts ht:j: option
  do
@@ -98,7 +94,7 @@ else
     SIRF_VM_VERSION=0.1
     echo virtual | sudo -S apt-get -y install python-scipy python-docopt python-matplotlib
   else
-    SIRF_VM_VERSION=MIC2018
+    SIRF_VM_VERSION=0.9
   fi
   echo "export SIRF_VM_VERSION=$SIRF_VM_VERSION" > ~/.sirf_VM_version
 fi
@@ -114,6 +110,12 @@ then
 fi
 
 SIRF_INSTALL_PATH=$SIRF_SRC_PATH/install
+
+# ignore notebook keys, https://github.com/CCPPETMR/SIRF-Exercises/issues/20
+python -m pip install -U --user nbstripout
+git config --global filter.nbstripout.extrakeys '
+  metadata.celltoolbar metadata.language_info.codemirror_mode.version
+  metadata.language_info.pygments_lexer metadata.language_info.version'
 
 # SuperBuild
 SuperBuild(){
@@ -131,7 +133,8 @@ SuperBuild(){
   if [ $1 = 'default' ] 
   then
    # get the latest tag matching v
-   SB_TAG=`git fetch; git for-each-ref refs/tags/v* --sort=-taggerdate --format='%(refname:short)' --count=1`
+   #SB_TAG=`git fetch; git for-each-ref refs/tags/v* --sort=-taggerdate --format='%(refname:short)' --count=1`
+   SB_TAG=`git tag | xargs -I@ git log --format=format:"%at @%n" -1 @ | sort | awk '{print $2}' | tail -1`
   else
    SB_TAG=$1
   fi
@@ -140,22 +143,22 @@ SuperBuild(){
   mkdir -p buildVM
   
   cd buildVM
-  # don't use -DUSE_SYSTEM_Boost=On for Xenial
   cmake ../SIRF-SuperBuild \
-      -DCMAKE_INSTALL_PREFIX=${SIRF_INSTALL_PATH} \
-	  -USIRF_URL -USIRF_TAG -USTIR_URL -USTIR_TAG \
-	  -UGadgetron_URL -UGadgetron_TAG -UISMRMRD_URL \
-	  -UISMRMRD_TAG \
-      -DSTIR_TAG=origin/DoxyAndSWIG \
-	  -DUSE_SYSTEM_SWIG=On \
-	  -DUSE_SYSTEM_Armadillo=On \
-	  -DUSE_SYSTEM_FFTW3=On \
-	  -DUSE_SYSTEM_HDF5=ON \
-	  -DBUILD_siemens_to_ismrmrd=OFF \
-          -DBUILD_GADGETRON=OFF \
-          -DBUILD_SIRF=OFF \
-	  -DDEVEL_BUILD=ON \
-          -DBUILD_DOCUMENTATION=ON
+        -DCMAKE_INSTALL_PREFIX=${SIRF_INSTALL_PATH} \
+        -U\*_URL -U\*_TAG \
+        -DUSE_SYSTEM_SWIG=On \
+        -DUSE_SYSTEM_Boost=On \
+        -DUSE_SYSTEM_Armadillo=On \
+        -DUSE_SYSTEM_FFTW3=On \
+        -DUSE_SYSTEM_HDF5=ON \
+        -DBUILD_siemens_to_ismrmrd=OFF \
+        -DBUILD_GADGETRON=OFF \
+        -DBUILD_SIRF=OFF \
+        -DBUILD_DOCUMENTATION=ON \
+        -DUSE_ITK=ON \
+        -DDEVEL_BUILD=OFF\
+        -DBUILD_CIL_LITE=OFF\
+        -DNIFTYREG_USE_CUDA=OFF
   make -j${num_parallel}
 
   if [ ! -f ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml ]
@@ -252,9 +255,12 @@ then
     mkdir -p $BUILD_PATH
     updateSTIR $SB_TAG
 else
-       
-# Launch the SuperBuild to update
-SuperBuild $SB_TAG
+    # Launch the SuperBuild to update
+    SuperBuild $SB_TAG
+fi
+
+# copy scripts into the path
+cp -vp $SIRF_SRC_PATH/CCPPETMR_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
 
 # Get extra python tools
 clone_or_pull  https://github.com/CCPPETMR/ismrmrd-python-tools.git
@@ -264,11 +270,10 @@ python setup.py install --user
 # install the SIRF-Exercises
 cd $SIRF_SRC_PATH
 clone_or_pull  https://github.com/CCPPETMR/SIRF-Exercises.git
-python -m pip install --user nbstripout
 cd $SIRF_SRC_PATH/SIRF-Exercises
-~/.local/bin/nbstripout --install
-
-fi
+PY_USER_BIN=`python -c 'import site; import os; print ( os.path.join(site.USER_BASE , "bin") )'`
+export PATH=${PY_USER_BIN}:${PATH}
+nbstripout --install
 
 # check STIR-exercises
 cd $SIRF_SRC_PATH
@@ -276,9 +281,6 @@ if [ -d STIR-exercises ]; then
   cd STIR-exercises
   git pull
 fi
-
-# copy scripts into the path
-cp -vp $SIRF_SRC_PATH/CCPPETMR_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
 
 # copy help file to Desktop
 if [ ! -d ~/Desktop ]
@@ -311,9 +313,7 @@ if [ ! -z "$STIR_exercises_PATH" ]; then
     echo "export STIR_exercises_PATH=$SIRF_SRC_PATH/STIR-exercises" >> ~/.sirfrc
 fi
 
-# TODO get this from somewhere else
 version=`echo -n "export SIRF_VM_VERSION=" | cat - ${SIRF_SRC_PATH}/CCPPETMR_VM/VM_version.txt`
-#echo "export SIRF_VM_VERSION=0.9.2" > ~/.sirf_VM_version
 echo $version > ~/.sirf_VM_version
 
 echo ""
