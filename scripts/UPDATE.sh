@@ -249,7 +249,7 @@ update()
   build_and_install $*
 }
 
-if [ $STIR_ONLY -eq 1 ]
+if false # [ $STIR_ONLY -eq 1 ]
 then
     BUILD_PATH=~/devel/testbuild
     mkdir -p $BUILD_PATH
@@ -298,7 +298,7 @@ if [ -r ~/.sirfc ]; then
   mv -v ~/.sirfc ~/.sirfc.old
 fi
 echo "export SIRF_SRC_PATH=$SIRF_SRC_PATH" > ~/.sirfrc
-if [ $STIR_ONLY -eq 1 ]
+if false #[ $STIR_ONLY -eq 1 ]
 then
     echo "PATH=${SIRF_INSTALL_PATH}/bin:$PATH" >> ~/.sirfrc
     echo "PYTHONPATH=${SIRF_INSTALL_PATH}/python" >> ~/.sirfrc
@@ -317,7 +317,7 @@ version=`echo -n "export SIRF_VM_VERSION=" | cat - ${SIRF_SRC_PATH}/CCPPETMR_VM/
 echo $version > ~/.sirf_VM_version
 
 echo ""
-echo "SIRF update done!"
+echo "VM update done!"
 echo "Contents of your .sirfrc is now as follows"
 echo "=================================================="
 cat ~/.sirfrc
