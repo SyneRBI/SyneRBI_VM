@@ -32,7 +32,8 @@ else
    cd ./STIR-exercises
 fi
 
-python -m pip install --user nbstripout
+PY_USER_BIN=`python -c 'import site; import os; print ( os.path.join(site.USER_BASE , "bin") )'`
+export PATH=${PY_USER_BIN}:${PATH}
 nbstripout --install
 
 # create shortcut on Desktop
