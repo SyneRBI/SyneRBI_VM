@@ -158,6 +158,7 @@ SuperBuild(){
         -DBUILD_NIFTYREG=OFF \
         -DBUILD_DOCUMENTATION=ON \
         -DUSE_ITK=ON \
+        -DSTIR_BUILD_EXECUTABLES=ON -DSTIR_BUILD_SWIG_PYTHON=ON \
         -DDEVEL_BUILD=OFF\
         -DBUILD_CIL_LITE=OFF\
         -DNIFTYREG_USE_CUDA=OFF
@@ -271,19 +272,23 @@ if [ -z "STIR_ONLY" ]; then
     python setup.py install --user
 fi
 
-# install the SIRF-Exercises
+# install the *-Exercises
 if [ -z "STIR_ONLY" ]; then
-    cd $SIRF_SRC_PATH
-    clone_or_pull  https://github.com/CCPPETMR/SIRF-Exercises.git
-    cd $SIRF_SRC_PATH/SIRF-Exercises
-    PY_USER_BIN=`python -c 'import site; import os; print ( os.path.join(site.USER_BASE , "bin") )'`
-    export PATH=${PY_USER_BIN}:${PATH}
-    nbstripout --install
+    main_prog=STIR
+else
+    main_prog=SIRF
 fi
-
-# check STIR-exercises
 cd $SIRF_SRC_PATH
-if [ -d STIR-exercises ]; then
+clone_or_pull  https://github.com/CCPPETMR/${main_prog}-Exercises.git
+cd $main_prog_SRC_PATH/${main_prog}-Exercises
+PY_USER_BIN=`python -c 'import site; import os; print ( os.path.join(site.USER_BASE , "bin") )'`
+export PATH=${PY_USER_BIN}:${PATH}
+nbstripout --install
+
+
+# check STIR-exercises if not done yet
+cd $SIRF_SRC_PATH
+if [ -d STIR-exercises -a  -z "STIR_ONLY" ]; then
   cd STIR-exercises
   git pull
 fi
