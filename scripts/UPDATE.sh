@@ -167,13 +167,12 @@ SuperBuild(){
     if [ $update_remote == 1 ]; then
         git remote set-url origin https://github.com/SyneRBI/SIRF-SuperBuild.git
     fi
-    git fetch --tags
+    git fetch --tags --all
   fi
   # go to SB_TAG
   if [ $1 = 'default' ] 
   then
    # get the latest tag matching v
-   git fetch --all
    #SB_TAG=`git fetch; git for-each-ref refs/tags/v* --sort=-taggerdate --format='%(refname:short)' --count=1`
    SB_TAG=`git tag | xargs -I@ git log --format=format:"%at @%n" -1 @ | sort | awk '{print $2}' | tail -1`
   else
