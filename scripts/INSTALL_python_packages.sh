@@ -41,7 +41,7 @@ trap 'echo An error occurred in $0 at line $LINENO. Current working-dir: $PWD' E
 # default python version
 if [ -z "$SIRF_PYTHON_EXECUTABLE" ]
 then
-    PYTHON=python
+    PYTHON=python3
 else
     PYTHON=$SIRF_PYTHON_EXECUTABLE
 fi
@@ -67,7 +67,7 @@ done
 
 $PYTHON -m pip install $PIPOPTIONS --upgrade pip wheel setuptools
 $PYTHON -m pip install $PIPOPTIONS --only-binary=numpy,scipy,matplotlib numpy scipy matplotlib nose coverage docopt deprecation nibabel pytest tqdm
-$PYTHON -m pip install $PIPOPTIONS jupyter spyder==3.2
+$PYTHON -m pip install $PIPOPTIONS jupyter spyder
 $PYTHON -m pip uninstall $PIPOPTIONS -y spyder-kernels
 # CIL
-$PYTHON -m pip install $PIPOPTIONS pillow==5
+$PYTHON -m pip install $PIPOPTIONS pillow

@@ -140,7 +140,7 @@ fi
 SIRF_INSTALL_PATH=$SIRF_SRC_PATH/install
 
 # ignore notebook keys, https://github.com/CCPPETMR/SIRF-Exercises/issues/20
-python -m pip install -U --user nbstripout==0.3.7
+python3 -m pip install -U --user nbstripout
 git config --global filter.nbstripout.extrakeys '
   metadata.celltoolbar metadata.language_info.codemirror_mode.version
   metadata.language_info.pygments_lexer metadata.language_info.version'
@@ -195,7 +195,8 @@ SuperBuild(){
         -DUSE_ITK=ON \
         -DDEVEL_BUILD=OFF\
         -DBUILD_CIL_LITE=ON\
-        -DNIFTYREG_USE_CUDA=OFF
+        -DNIFTYREG_USE_CUDA=OFF\
+        -DPYVER:STRING=3
   make -j${num_parallel}
 
   if [ ! -f ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml ]
