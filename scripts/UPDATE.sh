@@ -180,14 +180,13 @@ SuperBuild(){
   fi
   git checkout $SB_TAG
   cd ..
-  buildVM=newbuild
+  buildVM=buildVM
   mkdir -p $buildVM
   
   cd $buildVM
   cmake ../SIRF-SuperBuild \
         -DCMAKE_INSTALL_PREFIX=${SIRF_INSTALL_PATH} \
         -U\*_URL -U\*_TAG \
-	-DGadgetron_TAG=master \
         -DUSE_SYSTEM_SWIG=On \
         -DUSE_SYSTEM_Boost=On \
         -DUSE_SYSTEM_Armadillo=On \
