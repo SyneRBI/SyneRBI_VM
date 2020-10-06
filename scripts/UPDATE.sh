@@ -180,12 +180,14 @@ SuperBuild(){
   fi
   git checkout $SB_TAG
   cd ..
-  mkdir -p buildVM
+  buildVM=newbuild
+  mkdir -p $buildVM
   
-  cd buildVM
+  cd $buildVM
   cmake ../SIRF-SuperBuild \
         -DCMAKE_INSTALL_PREFIX=${SIRF_INSTALL_PATH} \
         -U\*_URL -U\*_TAG \
+	-DGadgetron_TAG=master \
         -DUSE_SYSTEM_SWIG=On \
         -DUSE_SYSTEM_Boost=On \
         -DUSE_SYSTEM_Armadillo=On \
@@ -194,9 +196,10 @@ SuperBuild(){
         -DBUILD_siemens_to_ismrmrd=On \
         -DUSE_ITK=ON \
         -DDEVEL_BUILD=OFF\
-        -DBUILD_CIL_LITE=ON\
         -DNIFTYREG_USE_CUDA=OFF\
-        -DPYVER:STRING=3
+        -DPYVER:STRING=3\
+        -DBUILD_CIL_LITE=ON\
+	-DCYTHON_EXECUTABLE=cython3
   make -j${num_parallel}
 
   if [ ! -f ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml ]
