@@ -196,9 +196,9 @@ SuperBuild(){
         -DUSE_ITK=ON \
         -DDEVEL_BUILD=OFF\
         -DNIFTYREG_USE_CUDA=OFF\
-        -DPYVER:STRING=3\
         -DBUILD_CIL_LITE=ON\
-	-DCYTHON_EXECUTABLE=cython3
+	      -DCYTHON_EXECUTABLE=/usr/bin/cython3\
+        -DPYTHON_EXECUTABLE=/usr/bin/python3
   make -j${num_parallel}
 
   if [ ! -f ${SIRF_INSTALL_PATH}/share/gadgetron/config/gadgetron.xml ]
