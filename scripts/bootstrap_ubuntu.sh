@@ -64,6 +64,7 @@ cd $userHOME/devel
 if [ ! -d $userHOME/devel/SyneRBI_VM ]; then
   git clone https://github.com/SyneRBI/SyneRBI_VM.git
   cd SyneRBI_VM
+  git checkout python3_build
 else
   cd SyneRBI_VM
   git pull
