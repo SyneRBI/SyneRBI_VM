@@ -80,4 +80,4 @@ bash $userHOME/devel/SyneRBI_VM/scripts/INSTALL_python_packages.sh
 # Therefore no browser is installed on the VM
 
 chown -R $SIRFUSERNAME:users $userHOME
-sudo -u $SIRFUSERNAME -H bash $userHOME/devel/SyneRBI_VM/scripts/UPDATE.sh -t update_cil_2011
+sudo -u $SIRFUSERNAME -H bash $userHOME/devel/SyneRBI_VM/scripts/UPDATE.sh
