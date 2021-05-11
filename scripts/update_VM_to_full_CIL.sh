@@ -20,7 +20,7 @@ cd $SIRF_PATH/../..
 cmake -DBUILD_CIL:BOOL=ON .
 make -j2 
 
-# update/get STIR exercises
+# update/get CIL demos
 cd $SIRF_SRC_PATH
 if [ -d ./CIL-Demos ]; then
    cd ./CIL-Demos
