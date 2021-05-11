@@ -17,7 +17,7 @@ fi
 
 # change build files to also build the STIR executables
 cd $SIRF_PATH/../..
-cmake -DBUILD_CIL:BOOL=ON
+cmake -DBUILD_CIL:BOOL=ON .
 make -j2 
 
 # update/get STIR exercises
