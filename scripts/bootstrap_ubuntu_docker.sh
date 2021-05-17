@@ -98,7 +98,7 @@ if [ ! -d $userHOME/devel/SIRF-SuperBuild ]; then
 else
   cd SIRF-SuperBuild
   git checkout $SB_TAG
-  git pull
+  # git pull
 fi
 
 
