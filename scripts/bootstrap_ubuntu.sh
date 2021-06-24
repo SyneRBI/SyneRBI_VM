@@ -63,7 +63,6 @@ cd $userHOME/devel
 
 if [ ! -d $userHOME/devel/SyneRBI_VM ]; then
   git clone https://github.com/SyneRBI/SyneRBI_VM.git
-  git checkout build_full_cil
   cd SyneRBI_VM
 else
   cd SyneRBI_VM
