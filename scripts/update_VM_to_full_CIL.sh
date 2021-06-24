@@ -23,7 +23,7 @@ ${APT_GET_INSTALL} autotools-dev automake autogen autoconf libtool
 # change build files to also build the CIL and ASTRA executables
 cd $SIRF_PATH/../..
 cmake -DBUILD_CIL:BOOL=ON .
-make -j2 
+cmake --build . -j2 
 
 # update/get CIL demos
 cd $SIRF_SRC_PATH
