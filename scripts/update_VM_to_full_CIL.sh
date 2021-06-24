@@ -4,7 +4,7 @@
 #   the CCPi Regularisation Toolkit and TomoPhantom.
 #   
 #
-# Author: Kris Thielemans
+# Author: Kris Thielemans, Edoardo Pasca
 
 echo "This script assumes you have run update_VM.sh already."
 echo "Things will go horribly wrong otherwise."
@@ -15,7 +15,12 @@ if [ -z "$SIRF_PATH" -o ! -d $SIRF_PATH -o ! -d $SIRF_PATH/../STIR ]; then
    exit 1
 fi
 
-# change build files to also build the STIR executables
+APT_GET_INSTALL="sudo apt-get install -y --no-install-recommends"
+# install CIL prerequisites
+${APT_GET_INSTALL} cython3 python3-h5py python3-wget
+# install ASTRA prerequisites
+${APT_GET_INSTALL} autotools-dev automake autogen autoconf libtool
+# change build files to also build the CIL and ASTRA executables
 cd $SIRF_PATH/../..
 cmake -DBUILD_CIL:BOOL=ON .
 make -j2 
@@ -29,8 +34,5 @@ else
    git clone https://github.com/TomographicImaging/CIL-Demos.git 
    cd ./CIL-Demos
 fi
-
-python -m pip install --user nbstripout
-nbstripout --install
 
 echo "All done"
