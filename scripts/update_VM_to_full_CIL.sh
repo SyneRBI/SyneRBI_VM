@@ -35,4 +35,8 @@ else
    cd ./CIL-Demos
 fi
 
+#make sure nbstripout is installed and apply filter to CIL-Demos repo
+python3 -m pip install --user nbstripout
+nbstripout --install
+
 echo "All done"
