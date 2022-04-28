@@ -1,4 +1,8 @@
-# CC SyneRBI Virtual Machine: Build your own VM 
+# NOTICE
+
+This repository is **not being maintained** any longer. All the functionality has been migrated to [SIRF-SuperBuild](https://github.com/SyneRBI/SIRF-SuperBuild/tree/master/VirtualBox).
+
+# CCP SyneRBI Virtual Machine: Build your own VM 
 
 This project contains a series of files and scripts to create and install a virtual machine running [SIRF](https://github.com/SyneRBI/SIRF) and its prerequisites. If you just want to download and use a pre-built VM, it can be downloaded from our [website](http://www.ccpsynerbi.ac.uk/downloads), just check the
 [installation  instructions](INSTALL.md) and our [wiki](https://github.com/SyneRBI/SyneRBI_VM/wiki)
