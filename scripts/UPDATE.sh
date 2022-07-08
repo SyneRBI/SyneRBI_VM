@@ -292,7 +292,10 @@ update()
 SuperBuild $SB_TAG
 
 # copy scripts into the path
-cp -vp $SIRF_SRC_PATH/SyneRBI_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
+# Now the update_VM sits in the SuperBuild repo, so copy that one.
+cd $SIRF_SRC_PATH/SIRF-SuperBuild
+git pull SIRF-SuperBuild
+cp -v VirtualBox/scripts/update_VM.sh $SIRF_INSTALL_PATH/bin
 
 # Get extra python tools
 clone_or_pull  https://github.com/SyneRBI/ismrmrd-python-tools.git
