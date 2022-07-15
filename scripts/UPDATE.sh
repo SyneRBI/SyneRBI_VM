@@ -153,10 +153,13 @@ git config --global filter.nbstripout.extrakeys '
 
 # Optionally install pre-requisites
 if [ $apt_install == 1 ]; then
+  cd ~/devel/SIRF-SuperBuild/docker
+  sudo -H bash raw-ubuntu.sh;
+  sudo -H bash build_essential-ubuntu.sh;
+  sudo -H bash build_python-ubuntu.sh;
+  sudo -H bash build_gadgetron-ubuntu.sh;
+  sudo -H bash build_system-ubuntu.sh;
   cd ~/devel/SyneRBI_VM/scripts
-  sudo -H ./INSTALL_prerequisites_with_apt-get.sh
-  sudo -H ./INSTALL_python_packages.sh --python "$PYTHON_EXECUTABLE"
-  sudo -H ./INSTALL_CMake.sh
   ./configure_gnome.sh
 fi
 
@@ -292,10 +295,7 @@ update()
 SuperBuild $SB_TAG
 
 # copy scripts into the path
-# Now the update_VM sits in the SuperBuild repo, so copy that one.
-cd $SIRF_SRC_PATH/SIRF-SuperBuild
-git pull SIRF-SuperBuild
-cp -v VirtualBox/scripts/update_VM.sh $SIRF_INSTALL_PATH/bin
+cp -vp $SIRF_SRC_PATH/SyneRBI_VM/scripts/update*sh $SIRF_INSTALL_PATH/bin
 
 # Get extra python tools
 clone_or_pull  https://github.com/SyneRBI/ismrmrd-python-tools.git
