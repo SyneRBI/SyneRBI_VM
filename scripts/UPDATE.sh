@@ -32,7 +32,7 @@
 
 
 # Exit if something goes wrong
-set -e
+set -ex
 # give a sensible error message (note: works only in bash)
 trap 'echo An error occurred in $0 at line $LINENO. Current working-dir: $PWD' ERR
 SB_TAG='default'
