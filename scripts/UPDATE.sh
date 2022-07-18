@@ -177,7 +177,7 @@ SuperBuild_git_update(){
 SuperBuild(){
   echo "==================== SuperBuild ====================="
   cd $SIRF_SRC_PATH
-  SuperBuild_git_update
+  SuperBuild_git_update $SB_TAG 
   clone_or_pull $SB_repo $SB_TAG
   cd ..
   buildVM=buildVM
