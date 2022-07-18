@@ -151,18 +151,7 @@ git config --global filter.nbstripout.extrakeys '
   metadata.celltoolbar metadata.language_info.codemirror_mode.version
   metadata.language_info.pygments_lexer metadata.language_info.version'
 
-# Optionally install pre-requisites
-if [ $apt_install == 1 ]; then
-  SuperBuild_git_update
-  cd ~/devel/SIRF-SuperBuild/docker
-  sudo -H bash raw-ubuntu.sh;
-  sudo -H bash build_essential-ubuntu.sh;
-  sudo -H bash build_python-ubuntu.sh;
-  sudo -H bash build_gadgetron-ubuntu.sh;
-  sudo -H bash build_system-ubuntu.sh;
-  cd ~/devel/SyneRBI_VM/scripts
-  ./configure_gnome.sh
-fi
+
 
 SuperBuild_git_update(){
   SB_repo=https://github.com/SyneRBI/SIRF-SuperBuild.git
@@ -294,6 +283,20 @@ update()
   clone_or_pull $1
   build_and_install $*
 }
+
+# Optionally install pre-requisites
+if [ $apt_install == 1 ]; then
+  SuperBuild_git_update
+  cd ~/devel/SIRF-SuperBuild/docker
+  sudo -H bash raw-ubuntu.sh;
+  sudo -H bash build_essential-ubuntu.sh;
+  sudo -H bash build_python-ubuntu.sh;
+  sudo -H bash build_gadgetron-ubuntu.sh;
+  sudo -H bash build_system-ubuntu.sh;
+  cd ~/devel/SyneRBI_VM/scripts
+  ./configure_gnome.sh
+  exit 0
+fi
 
 # Launch the SuperBuild to update
 SuperBuild $SB_TAG
