@@ -287,7 +287,7 @@ update()
 # Optionally install pre-requisites
 if [ $apt_install == 1 ]; then
   cd ~/devel
-  SuperBuild_git_update
+  SuperBuild_git_update $SB_TAG
   cd ~/devel/SIRF-SuperBuild/docker
   sudo -H bash raw-ubuntu.sh;
   sudo -H bash build_essential-ubuntu.sh;
