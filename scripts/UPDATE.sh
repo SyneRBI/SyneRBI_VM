@@ -153,6 +153,7 @@ git config --global filter.nbstripout.extrakeys '
 
 # Optionally install pre-requisites
 if [ $apt_install == 1 ]; then
+  SuperBuild_git_update
   cd ~/devel/SIRF-SuperBuild/docker
   sudo -H bash raw-ubuntu.sh;
   sudo -H bash build_essential-ubuntu.sh;
@@ -163,10 +164,7 @@ if [ $apt_install == 1 ]; then
   ./configure_gnome.sh
 fi
 
-# SuperBuild
-SuperBuild(){
-  echo "==================== SuperBuild ====================="
-  cd $SIRF_SRC_PATH
+SuperBuild_git_update(){
   SB_repo=https://github.com/SyneRBI/SIRF-SuperBuild.git
   if [ ! -d SIRF-SuperBuild ] 
   then
@@ -185,6 +183,12 @@ SuperBuild(){
   else
    SB_TAG=$1
   fi
+}
+# SuperBuild
+SuperBuild(){
+  echo "==================== SuperBuild ====================="
+  cd $SIRF_SRC_PATH
+  SuperBuild_git_update
   clone_or_pull $SB_repo $SB_TAG
   cd ..
   buildVM=buildVM
