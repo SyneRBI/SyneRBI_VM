@@ -164,7 +164,7 @@ SuperBuild_git_update(){
     git fetch --tags --all
   fi
   # go to SB_TAG
-  if [ $1 = 'default' ] 
+  if [ $1 == 'default' ] 
   then
    # get the latest tag matching v
    #SB_TAG=`git fetch; git for-each-ref refs/tags/v* --sort=-taggerdate --format='%(refname:short)' --count=1`
@@ -286,6 +286,7 @@ update()
 
 # Optionally install pre-requisites
 if [ $apt_install == 1 ]; then
+  cd ~/devel
   SuperBuild_git_update
   cd ~/devel/SIRF-SuperBuild/docker
   sudo -H bash raw-ubuntu.sh;
