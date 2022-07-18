@@ -177,7 +177,7 @@ SuperBuild_git_update(){
 SuperBuild(){
   echo "==================== SuperBuild ====================="
   cd $SIRF_SRC_PATH
-  SuperBuild_git_update $SB_TAG 
+  SuperBuild_git_update "$SB_TAG" 
   clone_or_pull $SB_repo $SB_TAG
   cd ..
   buildVM=buildVM
@@ -285,9 +285,9 @@ update()
 }
 
 # Optionally install pre-requisites
-if [ $apt_install == 1 ]; then
+if [ "$apt_install" == 1 ]; then
   cd ~/devel
-  SuperBuild_git_update $SB_TAG
+  SuperBuild_git_update "$SB_TAG"
   git checkout $SB_TAG
   cd ~/devel/SIRF-SuperBuild/docker
   sudo -H bash raw-ubuntu.sh;
